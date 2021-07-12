@@ -5,11 +5,11 @@ import style from '../App.css'
 const TodoList = (props) =>{
     const [todolist, setTodolist]= useState([])
     const [todo, setTodo] = useState("")
-    const [isComplete, setIsComplete]=useState(false)
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        const newTodo=[todo, isComplete]
+        let isCompleted=false;
+        const newTodo=[todo, isCompleted]
         setTodolist([...todolist, newTodo])
     }
 
@@ -19,8 +19,6 @@ const TodoList = (props) =>{
             if (i==index){
                 todo[1]= !todo[1]
             }
-            console.log(todo) 
-            console.log(todolist) 
         })
 
         setTodo(completedTodo)
@@ -49,10 +47,9 @@ const TodoList = (props) =>{
                     if(item[1]===true){
                         classes.push("checked")
                     }
-
                     return(
                         <div key={index} style={style} >
-                            <input type="checkbox" checked={item.isComplete} onChange={(event)=>{handleComplete(event, index)}}></input>
+                            <input type="checkbox" checked={item[1]} onChange={(event)=>{handleComplete(event, index)}}></input>
                             <span className={classes} >{item}</span>
                             <button onClick={(event)=>{handleDelete(event, index)}}>Delete</button>
                         </div>
